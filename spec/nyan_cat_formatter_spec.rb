@@ -137,7 +137,7 @@ describe NyanCatFormatter do
   describe 'highlight' do
 
     it 'should rainbowify passing examples' do
-      @formatter.highlight('=').should == "\e[38;5;154m-\e[0m"
+      @formatter.highlight('=').should == "\e[38;5;196m-\e[0m"
     end
 
     it 'should mark failing examples as red' do

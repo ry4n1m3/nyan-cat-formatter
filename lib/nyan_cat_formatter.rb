@@ -42,13 +42,13 @@ NyanCatFormatter = Class.new(parent_class) do
   # @return [String] Nyan Cat
   def nyan_cat
     if self.failed_or_pending? && self.finished?
-      ascii_cat('x')[@color_index%2].join("\n") #'~|_(x.x)'
+      ascii_cat('x')[@color_index/2%2].join("\n") #'~|_(x.x)'
     elsif self.failed_or_pending?
-      ascii_cat('o')[@color_index%2].join("\n") #'~|_(o.o)'
+      ascii_cat('o')[@color_index/2%2].join("\n") #'~|_(o.o)'
     elsif self.finished?
-      ascii_cat('-')[@color_index%2].join("\n") # '~|_(-.-)'
+      ascii_cat('-')[@color_index/2%2].join("\n") # '~|_(-.-)'
     else
-      ascii_cat('^')[@color_index%2].join("\n") # '~|_(^.^)'
+      ascii_cat('^')[@color_index/2%2].join("\n") # '~|_(^.^)'
     end
   end
 
@@ -115,9 +115,10 @@ NyanCatFormatter = Class.new(parent_class) do
   #
   # @return [String] the sprintf format of the Nyan cat
   def nyan_trail
-    marks = @example_results.map{ |mark| highlight(mark) }
-    marks.shift(current_width - terminal_width) if current_width >= terminal_width
     nyan_cat_lines = nyan_cat.split("\n").each_with_index.map do |line, index|
+      @color_index = @current%8
+      marks = @example_results.map{ |mark| highlight(mark, index) }
+      marks.shift(current_width - terminal_width) if current_width >= terminal_width
       format("%s#{line}", marks.join)
     end.join("\n")
   end
@@ -150,7 +151,15 @@ NyanCatFormatter = Class.new(parent_class) do
   def rainbowify(string)
     c = colors[@color_index % colors.size]
     @color_index += 1
-    "#{ESC}38;5;#{c}m#{string}#{NND}"
+    colorize(string, c)
+  end
+  
+  def rgb(r,g,b)
+    16+r*36+g*6+b
+  end
+  
+  def colorize(string, color)
+    "#{ESC}38;5;#{color}m#{string}#{NND}"
   end
 
   # Calculates the colors of the rainbow
@@ -166,14 +175,24 @@ NyanCatFormatter = Class.new(parent_class) do
       36 * r + 6 * g + b + 16
     end
   end
+  
+  def trail_colors
+    return [rgb(5,0,0),
+            rgb(5,2,0),
+            rgb(5,5,0),
+            rgb(0,5,0),
+            rgb(0,0,5),
+            rgb(1,0,5)]
+  end
 
   # Determines how to color the example.  If pass, it is rainbowified, otherwise
   # we assign red if failed or yellow if an error occurred.
   #
   # @return [String]
-  def highlight(mark = PASS)
+  def highlight(mark = PASS, index = 0)
+    @color_index += 1
     case mark
-    when PASS; rainbowify PASS_ARY[@color_index%8]
+    when PASS; colorize PASS_ARY[@color_index%8], trail_colors[index]
     when FAIL; "\e[31m#{mark}\e[0m"
     when ERROR; "\e[33m#{mark}\e[0m"
     when PENDING; "\e[33m#{mark}\e[0m"
