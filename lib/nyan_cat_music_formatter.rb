@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'nyan_cat_formatter'
 
-NyanCatMusicFormatter = Class.new(NyanCatFormatter) do
+class NyanCatMusicFormatter < NyanCatFormatter
   def osx?
     platform.downcase.include?("darwin")
   end

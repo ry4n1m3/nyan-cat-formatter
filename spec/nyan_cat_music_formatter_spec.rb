@@ -2,18 +2,8 @@ require 'spec_helper'
 require 'stringio'
 require 'nyan_cat_music_formatter'
 
-class MockKernel
-  def system(string)
-    seen << string
-  end
-
-  def seen
-    @seen ||= []
-  end
-end
-
 describe NyanCatMusicFormatter do
-  let(:path_to_mp3) { NyanCatMusicFormatter.new(NyanCatFormatter).nyan_mp3 }
+  let(:path_to_mp3) { NyanCatMusicFormatter.new(stdout).nyan_mp3 }
   let(:stdout)      { StringIO.new }
   let(:formatter)   { described_class.new stdout }
   let(:mock_kernel) { MockKernel.new }
