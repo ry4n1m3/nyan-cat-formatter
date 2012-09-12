@@ -16,7 +16,7 @@ NyanCatFormatter = Class.new(parent_class) do
   ESC      = "\e["
   NND      = "#{ESC}0m"
   PASS     = '='
-  PASS_ARY = ['-', '_']
+  PASS_ARY = ['-', '-', '_', '_', '-', '-', '‾', '‾']
   FAIL     = '*'
   ERROR    = '!'
   PENDING  = '+'
@@ -59,6 +59,7 @@ NyanCatFormatter = Class.new(parent_class) do
     padding = @example_count.to_s.length * 2 + 2
     line = nyan_trail.split("\n").each_with_index.inject([]) do |result, (trail, index)|
       value = "#{scoreboard[index]}/#{@example_count}:"
+      value = " " * value.length if scoreboard[index].strip == ""
       result << format("%s %s", value, trail)
     end.join("\n")
     output.print line + eol
@@ -105,7 +106,9 @@ NyanCatFormatter = Class.new(parent_class) do
     [ @current.to_s.rjust(padding),
       green((@current - @pending_examples.size - @failed_examples.size).to_s.rjust(padding)),
       yellow(@pending_examples.size.to_s.rjust(padding)),
-      red(@failed_examples.size.to_s.rjust(padding)) ]
+      red(@failed_examples.size.to_s.rjust(padding)), 
+      "".rjust(padding),
+      "".rjust(padding) ]
   end
 
   # Creates a rainbow trail
@@ -124,15 +127,19 @@ NyanCatFormatter = Class.new(parent_class) do
   # @param o [String] Nyan's eye
   # @return [Array] Nyan cats
   def ascii_cat(o = '^')
-    [[ "_,------,   ",
+    [[  "----------", 
+        "_,------,   ",
         "_|  /\\_/\\ ",
         "~|_( #{o} .#{o})  ",
-        " \"\"  \"\" "
+        " \"\"  \"\" ", 
+        "----------"
       ],
-      [ "_,------,   ",
+      [ "----------",
+        "_,------,   ",
         "_|   /\\_/\\",
         "^|__( #{o} .#{o}) ",
-        "  \"\"  \"\"    "
+        "  \"\"  \"\" ",
+        "----------"
       ]]
   end
 
@@ -166,7 +173,7 @@ NyanCatFormatter = Class.new(parent_class) do
   # @return [String]
   def highlight(mark = PASS)
     case mark
-    when PASS; rainbowify PASS_ARY[@color_index%2]
+    when PASS; rainbowify PASS_ARY[@color_index%8]
     when FAIL; "\e[31m#{mark}\e[0m"
     when ERROR; "\e[33m#{mark}\e[0m"
     when PENDING; "\e[33m#{mark}\e[0m"

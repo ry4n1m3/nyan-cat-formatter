@@ -34,7 +34,7 @@ describe NyanCatFormatter do
 
       it 'should relax Nyan Cat' do
         @formatter.example_passed(@example)
-        @formatter.nyan_cat.should == [
+        @formatter.nyan_cat.should include [
           '_,------,   ',
           '_|  /\_/\ ',
           '~|_( ^ .^)  ',
@@ -43,7 +43,7 @@ describe NyanCatFormatter do
       end
 
       it 'should update the scoreboard' do
-        @formatter.scoreboard.size.should == 4
+        @formatter.scoreboard.size.should == 6
       end
 
     end
@@ -62,7 +62,7 @@ describe NyanCatFormatter do
 
       it 'should alert Nyan Cat' do
         @formatter.example_pending(@example)
-        @formatter.nyan_cat.should == [
+        @formatter.nyan_cat.should include [
           '_,------,   ',
           '_|  /\_/\ ',
           '~|_( o .o)  ',
@@ -86,7 +86,7 @@ describe NyanCatFormatter do
 
       it 'should alert Nyan Cat' do
         @formatter.example_failed(@example)
-        @formatter.nyan_cat.should == [
+        @formatter.nyan_cat.should include [
           '_,------,   ',
           '_|  /\_/\ ',
           '~|_( o .o)  ',
@@ -97,7 +97,7 @@ describe NyanCatFormatter do
       it 'should kill nyan if the specs are finished' do
         @formatter.example_failed(@example)
         @formatter.stub(:finished?).and_return(true)
-        @formatter.nyan_cat.should == [
+        @formatter.nyan_cat.should include [
           '_,------,   ',
           '_|  /\_/\ ',
           '~|_( x .x)  ',

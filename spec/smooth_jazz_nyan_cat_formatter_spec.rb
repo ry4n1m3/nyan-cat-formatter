@@ -32,7 +32,7 @@ describe SmoothJazzNyanCatFormatter do
     describe 'example_passed' do
       it 'should relax Nyan Cat' do
         @formatter.example_passed(@example)
-        @formatter.nyan_cat.should == [
+        @formatter.nyan_cat.should include [
           '_,------,   ',
           '_|  /\_/\ ',
           '~|_( ⌐■.■)  ',
