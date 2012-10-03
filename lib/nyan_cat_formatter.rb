@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'nyan_cat_formatter/padded_string_io'
+
 rspec_bin = $0.split('/').last
 if rspec_bin == 'spec'
   ['spec', 'nyan_cat_formatter/rspec1', 'spec/runner/formatter/base_text_formatter'].each {|f| require f}
@@ -25,6 +27,10 @@ NyanCatFormatter = Class.new(parent_class) do
 
   attr_reader :current, :example_results, :color_index, :pending_count,
               :failure_count, :example_count
+              
+  def initialize(args)
+    super PaddedStringIO.new(terminal_width)
+  end
 
   # Increments the example count and displays the current progress
   #

@@ -22,8 +22,8 @@ module RSpec2
   def example_failed(example)
     super(example)
     @failure_count +=1
-    tick FAIL
     instafail.example_failed(example)
+    tick FAIL
   end
 
   def start_dump
