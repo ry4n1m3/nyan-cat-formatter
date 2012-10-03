@@ -1,15 +1,12 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "nyan-cat-formatter"
-  s.version     = "0.1.0"
-  s.authors     = ["Matt Sears"]
-  s.email       = ["matt@mattsears.com"]
-  s.homepage    = "http://mtts.rs/nyancat"
-  s.summary     = %q{Nyan Cat inspired RSpec formatter! }
-  s.description = %q{Nyan Cat inspired RSpec formatter! }
-
-  s.rubyforge_project = "nyan-cat-formatter"
+  s.name        = "smooth-jazz-nyan-cat-formatter"
+  s.version     = "0.1.1"
+  s.authors     = ["Ryan Spore"]
+  s.email       = ["ry@nspore.com"]
+  s.summary     = %q{Nyan Cat inspired RSpec formatter! Now with more Jazz! }
+  s.description = %q{Nyan Cat inspired RSpec formatter! Now with more Jazz! }
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
