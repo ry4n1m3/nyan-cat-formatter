@@ -227,6 +227,5 @@ NyanCatFormatter = Class.new(parent_class) do
   def failed_or_pending?
     (@failure_count.to_i > 0 || @pending_count.to_i > 0)
   end
-
 end
 

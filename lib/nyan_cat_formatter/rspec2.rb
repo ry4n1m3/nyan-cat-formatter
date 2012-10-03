@@ -1,3 +1,5 @@
+require 'rspec/instafail'
+
 module RSpec2
 
   def start(example_count)
@@ -21,12 +23,17 @@ module RSpec2
     super(example)
     @failure_count +=1
     tick FAIL
+    instafail.example_failed(example)
   end
 
   def start_dump
     @current = @example_count
   end
 
+  def dump_failures
+    nil
+  end
+  
   def dump_summary(duration, example_count, failure_count, pending_count)
     NyanCatMusicFormatter.new(NyanCatFormatter).kill_music if NyanCatMusicFormatter
     dump_profile if profile_examples? && failure_count == 0
@@ -36,5 +43,9 @@ module RSpec2
     if respond_to?(:dump_commands_to_rerun_failed_examples)
       dump_commands_to_rerun_failed_examples
     end
+  end
+
+  def instafail
+    @instafail ||= RSpec::Instafail.new(output)
   end
 end

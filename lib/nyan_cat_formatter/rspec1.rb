@@ -1,3 +1,5 @@
+require 'rspec/instafail'
+
 module RSpec1
 
   def start(example_count)
@@ -23,6 +25,7 @@ module RSpec1
     super
     @failure_count =+1
     tick FAIL
+    instafail.example_failed(example)
   end
 
   def start_dump
@@ -53,5 +56,9 @@ module RSpec1
       @output.puts green(summary)
     end
     @output.flush
+  end
+
+  def instafail
+    @instafail ||= RSpec::Instafail.new(output)
   end
 end
