@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "smooth-jazz-nyan-cat-formatter"
-  s.version     = "0.1.1"
+  s.version     = "0.1.2"
   s.authors     = ["Ryan Spore"]
   s.email       = ["ry@nspore.com"]
   s.summary     = %q{Nyan Cat inspired RSpec formatter! Now with more Jazz! }
