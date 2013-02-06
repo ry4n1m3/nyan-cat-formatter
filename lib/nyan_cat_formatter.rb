@@ -29,7 +29,7 @@ NyanCatFormatter = Class.new(parent_class) do
               :failure_count, :example_count
               
   def initialize(args)
-    super PaddedStringIO.new(terminal_width)
+    super PaddedStringIO.new
   end
 
   # Increments the example count and displays the current progress
@@ -76,8 +76,9 @@ NyanCatFormatter = Class.new(parent_class) do
   # @return [String]
   def eol
     return "\n" if @current == @example_count
-    length = (nyan_cat.split("\n").length - 1)
-    length > 0 ? format("\e[1A" * length + "\r") : "\r"
+    number_of_lines = (nyan_cat.split("\n").length - 1)
+    move_cursor_up = "\e[1A"
+    number_of_lines > 0 ? format(move_cursor_up * number_of_lines + "\r") : "\r"
   end
 
   # Calculates the current flight length
@@ -96,7 +97,7 @@ NyanCatFormatter = Class.new(parent_class) do
     if defined? JRUBY_VERSION
       default_width = 80
     else
-      default_width = `stty size`.split.map { |x| x.to_i }.reverse.first - 1
+      default_width = `stty size`.split[-1].to_i - 1
     end
     @terminal_width ||= default_width
   end
