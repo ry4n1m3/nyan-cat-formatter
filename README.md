@@ -1,12 +1,7 @@
 Nyan Cat RSpec Formatter [![Build Status](https://secure.travis-ci.org/mattsears/nyan-cat-formatter.png)](http://travis-ci.org/mattsears/nyan-cat-formatter)
 ========
 
-```
--_-_-_-_-_-_-_,------,
-_-_-_-_-_-_-_-|   /\_/\
--_-_-_-_-_-_-~|__( ^ .^)
-_-_-_-_-_-_-_-""  ""
-```
+![NYAN](nyan_example.gif)
 
 This is my take on the Nyan Cat RSpec Formatter. It simply creates a rainbow trail of test results. It also counts the number of examples as they execute and highlights failed and pending specs.
 
@@ -28,9 +23,11 @@ so that you won't have to specify the `--format` option everytime you run the co
 
 To use Nyan Cat with a project that uses Bundler (Rails or Sinatra f.e.) you need to add Nyan Cat dependecy to your Gemfile:
 
-    group :test do
-      gem "nyan-cat-formatter"
-    end
+```ruby
+group :test do
+  gem "nyan-cat-formatter"
+end
+```
 
 And then run `bundle install`.
 
@@ -75,6 +72,20 @@ Then run `rspec spec` and enjoy Nyan Cat formatted text output accompanied by th
 
 **This currently only works on Mac OS X or on Linux (if you have mpg321 or mpg123 installed).**
 
+Using the Nyan Cat Wide Formatter
+---------------------------------
+
+The classic Nyan Cat Formatter uses a terminal column per test. One
+test, and single step that the cat goes ahead. The **Nyan Cat Wide
+Formatter**, instead, uses the whole terminal width, so the cat will
+always end up reaching the end of the terminal.
+
+Simple use it by configuring it as the RSpec formatter:
+
+```
+--format NyanCatWideFormatter
+```
+
 Contributing
 ----------
 
@@ -88,5 +99,4 @@ Once you've made your great commits:
 
 Author
 ----------
-[Matt Sears](https://wwww.mattsears.com) :: @mattsears
-
+[Matt Sears](http://www.mattsears.com) :: @mattsears
