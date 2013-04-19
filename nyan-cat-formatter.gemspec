@@ -1,8 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
+require 'smooth_jazz_nyan_cat_formatter/version'
 
 Gem::Specification.new do |s|
   s.name        = "smooth-jazz-nyan-cat-formatter"
-  s.version     = "0.1.3"
+  s.version     = SmoothJazzNyanCatFormatter::VERSION
   s.authors     = ["Ryan Spore"]
   s.email       = ["ry@nspore.com"]
   s.summary     = %q{Nyan Cat inspired RSpec formatter! Now with more Jazz! }
@@ -14,7 +15,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "rspec-instafail"
-  
+
   s.add_development_dependency "rspec"
   s.add_development_dependency "rake"
 end
